@@ -1,39 +1,42 @@
 import { StatusBar } from 'expo-status-bar';
 import { View, Text } from 'react-native';
-import Arpeggiator from './components/Arpeggiator/Arpeggiator';
-import Notation from './components/Notation/Notation';
 import Styles from './Styles';
 import { NativeRouter, Routes, Route, Link } from "react-router-native"
-import Scales from './components/Scales/Scales';
-import Fifths from './components/Fifths/Fifths';
+import Notation from './components/Intervals';
+import Arpeggiator from './components/Arpeggiator';
+import Scales from './components/Scales';
+import { Store } from './redux/store';
 import { useState } from 'react';
+import { Provider } from 'react-redux';
 
 export default function App() {
   return (
-    <View style={Styles.container}>
-      <StatusBar style="auto" />
-      <NativeRouter>
-        <NavigationLinks />
-        <Routing />
-      </NativeRouter>
-    </View>
+    <Provider store={Store}>
+      <View style={Styles.container}>
+        <StatusBar style="auto" />
+        <NativeRouter>
+          <NavigationLinks />
+          <Routing />
+        </NativeRouter>
+      </View>
+    </Provider>
   )
 }
 
 function NavigationLinks() {
   const [isActive, setActive] = useState<boolean[]>([false, false, false, false]);
 
-  const firstLink = () =>{
-    setActive([true,false,false,false]);
+  const firstLink = () => {
+    setActive([true, false, false, false]);
   }
-  const secondLink = () =>{
-    setActive([false,true,false,false]);
+  const secondLink = () => {
+    setActive([false, true, false, false]);
   }
-  const thirdLink = () =>{
-    setActive([false,false,true,false]);
+  const thirdLink = () => {
+    setActive([false, false, true, false]);
   }
-  const fourthLink = () =>{
-    setActive([false,false,false,true]);
+  const fourthLink = () => {
+    setActive([false, false, false, true]);
   }
 
   return (
@@ -57,11 +60,10 @@ function NavigationLinks() {
 function Routing() {
   return (
     <Routes>
-      <Route path='/' element={<Text >Welcome to my App !</Text>} />
+      <Route path='/' element={<Text>Welcome to my App !</Text>} />
       <Route path='/Notation' element={<Notation />} />
       <Route path='/Arpeggiator' element={<Arpeggiator />} />
       <Route path='/Scales' element={<Scales />} />
-      <Route path='/Fifths' element={<Fifths />} />
     </Routes>
   )
 }

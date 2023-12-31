@@ -1,22 +1,21 @@
-import { StyleSheet } from "react-native"
+import { StyleSheet } from 'react-native';
 
-const Styles = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#758296',
   },
   active: {
-    backgroundColor: "#424242",
+    backgroundColor: "#d5deeb",
   },
   linksBar: {
-    marginTop: 5,
+    marginTop: 40,
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
   },
   linkButton: {
-    backgroundColor: "aqua",
     fontWeight: "700",
     fontSize: 30,
     borderColor: "black",
@@ -31,7 +30,12 @@ const Styles = StyleSheet.create({
     width: "60%",
     margin: 50,
   },
+  note: {
+    color: "#b3d0ff",
+    fontSize: 70,
+  },
   question: {
+    textAlign:"center",
     fontSize: 60,
     marginRight: "auto",
     marginLeft: "auto",
@@ -48,13 +52,18 @@ const Styles = StyleSheet.create({
     margin: 5,
   },
   button: {
+    marginTop: 10,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
-    paddingHorizontal: 32,
+    paddingHorizontal: 20,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: 'aqua',
+  },
+  checkbox: {
+    backgroundColor: '#758296',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   submit: {
     fontSize: 25,
@@ -63,11 +72,7 @@ const Styles = StyleSheet.create({
     letterSpacing: 0.25,
   },
   wrong: {
-    fontSize: 25,
-    marginRight: "auto",
-    marginLeft: "auto",
-    color: "red",
-    marginBottom: 10,
+    backgroundColor: "red",
   },
   guessGrid: {
     display: "flex",
@@ -77,7 +82,4 @@ const Styles = StyleSheet.create({
     marginRight: "auto",
     marginLeft: "auto",
   },
-
-})
-
-export default Styles
+});

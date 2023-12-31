@@ -16,7 +16,7 @@ export default () => {
     const [chordIndex, setChordIndex] = useState<number>(randomChordIndex());
     const [wrongAnswers, setWrong] = useState<number[]>([]);
     const noteIndex = useSelector((state: number) => state);
-    const { register, handleSubmit, reset, setValue } = useForm<any>();
+    const { register, handleSubmit, reset, setValue, setFocus } = useForm<any>();
 
     const submit = (result: GenericAnswersType) => {
         const guesses = Object.values(result);
@@ -30,6 +30,7 @@ export default () => {
         if (wrong.length < 1) {
             setChordIndex(old => randomChordIndex(old));
             dispatch(changeNote());
+            setFocus("0");
             reset();
         }
         else

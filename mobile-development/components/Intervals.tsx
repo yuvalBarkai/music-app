@@ -1,15 +1,21 @@
-import { SyntheticEvent, useEffect, useState } from "react";
-import { Button, Text, View, TextInput, Pressable } from "react-native";
-import Styles from "../Styles";
+import { useState } from "react";
+import { Text, TextInput, View, Button, Pressable } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import intervals from "../data/intervals";
 import notes from "../data/notes";
-import { useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { changeNote } from "../redux/actions";
 import findNoteIndex from "../utils/findNoteIndex";
 import indexInc from "../utils/indexInc";
 import randomIndex from "../utils/randomIndex";
-import { Form } from "react-native-form-component";
+import styles from "../styles";
+import { ReduxStoreType } from "../redux/store";
+import { CheckBox } from "react-native-elements";
+import Field from "./Field";
+
+interface FormValues {
+    answer: string;
+}
 
 export default () => {
     const dispatch = useDispatch();
@@ -17,12 +23,17 @@ export default () => {
 
     const [intervalIndex, setIntervalIndex] = useState<number>(randomIntervalIndex());
     const [isWrong, setWrong] = useState(false);
-    const noteIndex = useSelector((state: number) => state);
-    const { register, handleSubmit, reset, setValue } = useForm<any>();
+    const [compound, setCompound] = useState(false);
+    const noteIndex = useSelector((state: ReduxStoreType) => state.note);
+    const { setValue, handleSubmit, reset, control } = useForm({
+        defaultValues: {
+            answer: ""
+        }
+    });
 
-    const submit = (result: { answer: string }) => {
+    const onSubmit: SubmitHandler<FormValues> = (data) => {
         const semiTones = intervals[intervalIndex].halfSteps;
-        if (findNoteIndex(result.answer) != indexInc(noteIndex + semiTones)) {
+        if (findNoteIndex(data.answer) != indexInc(noteIndex + semiTones)) {
             setValue("answer", "");
             setWrong(true);
         }
@@ -34,16 +45,21 @@ export default () => {
         }
     }
     return (
-        <Form onButtonPress={handleSubmit(submit)}>
-            <Text style={Styles.question}>
-                {notes[noteIndex].english}<br />
-                {intervals[intervalIndex].name}
+        <View>
+            <CheckBox
+            containerStyle={styles.checkbox}
+                title='Compund'
+                onPress={() => setCompound(!compound)}
+                checked={compound}
+            />
+            <Text style={styles.question}>
+                <Text style={styles.note}>{notes[noteIndex].english}</Text>{`\n`}
+                {compound ? intervals[intervalIndex].compoundName : intervals[intervalIndex].name}
             </Text>
-            <TextInput style={Styles.guess} {...register(`answer`)} autoFocus={true} />
-            {/* <Text style={Styles.wrong}> {state.wrong} </Text> */}
-            <Pressable style={Styles.button}>
-                <Text style={Styles.submit}>Submit</Text>
+            <Field handleSubmit={handleSubmit} control={control} isWrong={isWrong} onSubmit={onSubmit}  />
+            <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
+                <Text style={styles.submit}>Submit</Text>
             </Pressable>
-        </Form>
+        </View>
     )
 }

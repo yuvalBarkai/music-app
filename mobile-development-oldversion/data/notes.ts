@@ -8,7 +8,7 @@ const mixArrays = (first: string[], second: string[]) => {
 }
 
 const sharps = ["#", "SHARP", "DIEZ"];
-const flats = ["B", "FLAT", "BEMOLLE"];
+const flats = ["B", "FLAT", "BEMOL"];
 
 const c = ["C", "DO", "DOE", "UT"];
 const d = ["D", "RE", "REY", "RAY"];

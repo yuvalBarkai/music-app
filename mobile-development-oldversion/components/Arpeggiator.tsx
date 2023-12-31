@@ -1,4 +1,4 @@
-import { Text, View, TextInput, Pressable } from "react-native";
+import { Text, View, TextInput, Pressable, Button } from "react-native";
 import Styles from "../Styles";
 import { useState } from "react";
 import chords from "../data/chords";
@@ -45,7 +45,7 @@ export default () => {
             {chords[chordIndex].formula.map((note, index) =>
                 <TextInput style={Styles.guess} {...register(`${index}`)} autoFocus={index == 0} />)}
 
-{/*             <Text style={Styles.wrong}> {state.wrong} </Text> */}
+            {/*             <Text style={Styles.wrong}> {state.wrong} </Text> */}
             <Pressable style={Styles.button}>
                 <Text style={Styles.submit}>Submit</Text>
             </Pressable>

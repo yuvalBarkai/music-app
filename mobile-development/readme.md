@@ -1,9 +1,8 @@
 # Music App
 
 ## Current features:
-- Arpeggiator
 - Intervals
-- Scales
+- Arpeggiator
 
 ## Creating Typescript React native project
 - npx create-expo-app -t expo-template-blank-typescript

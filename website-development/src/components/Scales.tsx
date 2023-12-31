@@ -16,7 +16,7 @@ export default function () {
     const [scaleIndex, setScaleIndex] = useState<number>(randomScaleIndex());
     const [wrongAnswers, setWrong] = useState<number[]>([]);
     const noteIndex = useSelector((state: number) => state);
-    const { register, handleSubmit, reset, setValue } = useForm<any>();
+    const { register, handleSubmit, reset, setValue, setFocus } = useForm<any>();
 
     const submit = (result: GenericAnswersType) => {
         const guesses = Object.values(result);
@@ -30,6 +30,7 @@ export default function () {
         if (wrong.length < 1) {
             setScaleIndex(old => randomScaleIndex(old));
             dispatch(changeNote());
+            setFocus("0");
             reset();
         }
         else
